@@ -22,4 +22,5 @@ public class BoardService {
         board.update(requestDto);
         return board.getId();
     }
+
 }

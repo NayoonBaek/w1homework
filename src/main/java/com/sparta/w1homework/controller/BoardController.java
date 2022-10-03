@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,6 +27,11 @@ public class BoardController {
     @GetMapping("/api/boards")
     public List<Board> getBoard() {
         return boardRepository.findAllByOrderByModifiedAtDesc();
+    }
+
+    @GetMapping("/api/boards/{id}")
+    public Optional<Board> findById(@PathVariable Long id){
+        return boardRepository.findById(id);
     }
 
     @DeleteMapping("/api/boards/{id}")
