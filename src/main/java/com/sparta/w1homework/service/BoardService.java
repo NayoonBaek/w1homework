@@ -5,6 +5,7 @@ import com.sparta.w1homework.dto.BoardRequestDto;
 import com.sparta.w1homework.entity.Board;
 import com.sparta.w1homework.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.type.TrueFalseType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,4 +24,14 @@ public class BoardService {
         return board.getId();
     }
 
+    public boolean checkPass(Long id, String password) {
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+        );
+        if(board.getPassword().equals(password)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

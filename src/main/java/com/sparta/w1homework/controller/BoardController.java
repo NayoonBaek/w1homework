@@ -35,13 +35,20 @@ public class BoardController {
     }
 
     @DeleteMapping("/api/boards/{id}")
-    public Long deleteBoard(@PathVariable Long id) {
+    public String deleteBoard(@PathVariable Long id) {
         boardRepository.deleteById(id);
-        return id;
+        return "삭제완료";
     }
     @PutMapping("/api/boards/{id}")
-    public Long updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
+    public String updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
         boardService.update(id, requestDto);
-        return id;
+        return "수정완료";
     }
+
+    @PostMapping("/api/boards/{id}")
+    public boolean checkPass(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
+        boolean result = boardService.checkPass(id,requestDto.getPassword());
+        return result;
+    }
+
 }
